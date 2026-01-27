@@ -80,8 +80,8 @@ auto-completion.
 
 .. _sign/sign-document/initials-signature:
 
-Define initials and signature
------------------------------
+Define a signature and initials
+-------------------------------
 
 If you are an:
 
@@ -117,6 +117,27 @@ To define how your initials/signature should appear after clicking the relevant 
 
 If there are multiple documents to sign within the same document envelope, the defined
 initials/signature can thereafter be added directly by clicking the relevant field.
+
+.. _sign/sign-document/decline:
+
+Decline a signature request
+---------------------------
+
+.. note::
+   It is only possible to decline a signature request when accessing it through the link sent by
+   email. Declining is not available when the document is accessed directly from Odoo.
+
+To decline a signature request, click the :icon:`fa-caret-down` (:guilabel:`dropdown`) button in
+the top-right corner next to the name(s) of the signer(s), then select :guilabel:`Decline to sign`.
+Enter the reason for the refusal, then click :guilabel:`Decline`.
+
+The signature request is then marked as :guilabel:`Cancelled` and the refusal is recorded in the
+:ref:`signature request's activity logs and chatter <sign/request-signatures/manage-details>`.
+Any other signers are notified and any remaining signers can no longer sign the document.
+
+.. note::
+   It is not possible to decline the signature of an individual document within a document envelope.
+   Declining to sign cancels the entire signature request.
 
 .. _sign/sign-document/pdf-document:
 
@@ -191,7 +212,7 @@ the Documents app.
 
 To enable the :guilabel:`Sign` option:
 
-   #. In the Documents app, with the relevant folder or sub-folder open, click the :icon:`fa-cog`
-      :guilabel:`(Actions)` icon beside the name of the folder.
-   #. Click :icon:`fa-cog` :menuselection:`Actions on Select -->` :icon:`fa-caret-right`
-      :menuselection:`Sign`.
+#. In the Documents app, with the relevant folder or sub-folder open, click the :icon:`fa-cog`
+   :guilabel:`(Actions)` icon beside the name of the folder.
+#. Click :icon:`fa-cog` :menuselection:`Actions on Select -->` :icon:`fa-caret-right`
+   :menuselection:`Sign`.
