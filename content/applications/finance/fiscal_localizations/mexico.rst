@@ -166,9 +166,9 @@ Regime` that applies to the company from the drop-down list, and click :guilabel
 
 .. tip::
    In order to test the Mexican localization, configure the company with a real address within
-   Mexico (including all fields). Add `EKU9003173C9` as the :guilabel:`Tax ID` and `ESCUELA KEMPER
-   URGATE` as the :guilabel:`Company Name`. For the :guilabel:`Fiscal Regime`, use
-   :guilabel:`General de Ley Personas Morales`.
+   Mexico (including all fields). Add `IVD920810GU2` as the :guilabel:`RFC`, `58000` as :guilabel:`Zip`
+   and `INNOVACION VALOR Y DESARROLLO SA SA` as the :guilabel:`Company Name`. For the
+   :guilabel:`Fiscal Regime`, use :guilabel:`General de Ley Personas Morales`.
 
 Branches
 --------
@@ -410,7 +410,8 @@ menu.
    records are optional.
 
 .. tip::
-   In order to test the electronic invoicing, the following |SAT| test certificates are provided:
+   In order to test the electronic invoicing, the following |SAT| test certificates are provided and
+   can be tested with either `Quadrum` or `Solución Factible` as PAC:
 
    - :download:`Certificate <mexico/certificate.cer>`
    - :download:`Certificate Key <mexico/certificate.key>`
@@ -764,6 +765,25 @@ Like with invoices, go to the payment and click :guilabel:`Update SAT` in order 
    This action cancels the invoice and marks the :guilabel:`Reason` as :guilabel:`01 - Invoice
    issued with errors (with related document)`.
 
+.. _l10n/mx/cancellation-acknowledgement:
+
+Cancellation Acknowledgement
+****************************
+
+After cancelling a |CFDI| it is possible to print a cancellation acknowledgement by clicking on the
+:guilabel:`Print` button of the cancellation line within the :guilabel:`CFDI` tab this will print
+the |PAC| response.
+To add the current :guilabel:`SAT status` within the government to the PDF please click on the
+:guilabel:`Update SAT` button in the invoice form, please note that even if we are reviewing a payment
+the state is update is performed on the invoice.
+
+.. image:: mexico/mx-invoice-cancellation-acknowledgement.png
+   :alt: Cancellation acknowledgement example.
+
+.. important::
+   A cancellation acknowledgement is a confirmation that the cancellation was requested successfully
+   but it is *not* a definitive proof that the CFDI is completely cancelled.
+
 .. _l10n/mx/special-use-cases:
 
 Invoicing special use cases
@@ -1073,9 +1093,31 @@ Odoo will redirect to a list of invoices. Select all of them and in the :icon:`f
 and go back to the  :icon:`fa-gear` :guilabel:`Actions` drop-down menu to select :guilabel:`Create
 Global Invoice`.
 
-In the wizard, select the :guilabel:`Periodicity` indicated by a professional accountant and press
+In the wizard, select the :guilabel:`Periodicity` indicated by a professional accountant and the
+period to be invoiced by selecting the :guilabel:`Date` field, then press
 :guilabel:`Create`. All invoices should be signed under the same XML file, with the same
 :guilabel:`Fiscal Folio`.
+
+.. image:: mexico/mx-global-invoice-periodicity.png
+   :alt: Global invoice wizard with periodicity.
+
+When selecting the :guilabel:`Date` field the day is not relevant, it is just used to extract the
+*month* and *year* for the xml.
+Please note that in the case of bimonthly periodicity the month will determine which month is
+declared:
+
+- For the first 12 months the number corresponds to the month number.
+- January - February -> 13
+- March - April -> 14
+- May - June -> 15
+- July - August -> 16
+- September - October -> 17
+- November - December -> 18
+
+.. example::
+   Selecting the date 01/12/2026 with monthly periodicity will declare the month 12 and year 2026.
+   Selecting the date 01/12/2026 with bimonthly periodicity will declare the month 18 and year 2026.
+   Selecting the date 01/12/2026 with daily periodicity will delcare the month 12 and year 2026.
 
 .. tip::
    - Click :guilabel:`Show` in the :guilabel:`CFDI` tab to display a list with all related invoices.
@@ -1376,6 +1418,19 @@ the invoice's :guilabel:`Other Info` tab.
 
 Finally, confirm the invoice with the same process as a regular invoice, and click the
 :guilabel:`Send` button to sign it via CFDI.
+
+.. _l10n/mx/external-trade-services:
+
+Invoicing services
+~~~~~~~~~~~~~~~~~~
+
+It is possible to invoice services along with the merchandise by adding them to the invoice and
+verifying that the service that will be invoiced has the correct setup.
+To verify go to the service to be invoiced and head to the :guilabel:`Accounting` tab, under the
+:guilabel:`UNSPSC` section and open the :guilabel:`UMT aduana` and inside verify that either the
+:guilabel:`UNSPSC Category` is set as *E48* or the :guilabel:`Customs code` is set as *99*.
+
+Invoicing with either of the mentioned codes will declare the price of the services as 0 for customs.
 
 .. _l10n/mx/pos:
 
