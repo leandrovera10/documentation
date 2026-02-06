@@ -18,10 +18,9 @@ Configuration on Mercado Pago Dashboard
    then select the industry, optionally enter your domain, and click :guilabel:`Generate
    production credentials`
 
-.. tip::
-   If you are trying Mercado Pago as a test, follow the `Test accounts <https://www.mercadopago
-   .com.ar/developers/es/docs/your-integrations/test/accounts>`_ documentation to be able to 
-   generate seller and buyer testing accounts. 
+.. warning::
+   Mercado Pago testing environment is not available, all transactions will be generated
+   in the production environment. 
 
 .. image::mercado_pago/mp-production-credentials.png
    :align: center 
@@ -43,8 +42,10 @@ In the :guilabel:`Configuration` tab, click on the :ref:`Enable Payment Methods
 
 - :guilabel:`Card:` Enables the embedded payment card brick.
 - :guilabel:`Mercado Pago Wallet:` Enables the redirect payment portal.
+- :guilabel:`Bank Transfer:` Enables bank transfer options of the redirect payment portal.
 
-Mercado Pago does support :ref:`Tokenization <payment_providers/tokenization>` features.
+Mercado Pago only supports :ref:`Tokenization <payment_providers/tokenization>` features 
+for the :guilabel:`Card:` payment method (Checkout Bricks solution).
 
 .. seealso::
    - :doc:`../payment_providers`
