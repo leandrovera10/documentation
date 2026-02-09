@@ -11,7 +11,8 @@ Prerequisites
 
 Before configuring the **Lazada Connector**, ensure you have:
 
-- A Lazada Seller account (:guilabel:`Personal Self-Developed` or :guilabel:`Enterprise Self-Developed`).
+- A Lazada Seller account
+  (:guilabel:`Personal Self-Developed` or :guilabel:`Enterprise Self-Developed`).
 - A valid email address and phone number for verification.
 - A digital copy of your business license (for :guilabel:`Enterprise Self-Developed` accounts).
 - A brief description of your integration purpose (e.g., "Connecting Odoo ERP to our Lazada store
@@ -38,12 +39,12 @@ Create a Lazada Open Platform Account
    - Enter your email, password, and phone number. Complete any verification steps (e.g.,
      :abbr:`OTP (One-Time Password)` via SMS).
    - For :guilabel:`Enterprise Self-Developed` accounts, upload your business license.
-   - Provide a brief introduction (e.g., "Integration for Odoo ERP to sync orders, inventory,
-     and fees with Lazada").
+   - Provide a brief introduction (e.g., "Integration for Odoo ERP to sync orders, inventory, and
+     fees with Lazada").
 
-4. Submit for Approval: Submit your profile details. Approval typically takes a few hours to
-   a couple of business days. Check your registered email for confirmation or requests for
-   additional information.
+4. Submit for Approval: Submit your profile details. Approval typically takes a few hours to a
+   couple of business days. Check your registered email for confirmation or requests for additional
+   information.
 5. Check Approval Status: If rejected, review the reason in the notification email or on the
    *Lazada Open Platform Console*. Edit and resubmit as needed.
 
@@ -56,7 +57,8 @@ Create an App on Lazada Open Platform
 
 To obtain the :guilabel:`App Key` and :guilabel:`App Secret` for Odoo integration:
 
-1. Access :guilabel:`App Management`: Log in to the `Lazada Open Platform Console <https://open.lazada.com/>`_, navigate to
+1. Access :guilabel:`App Management`: Log in to the
+   `Lazada Open Platform Console <https://open.lazada.com/>`_, navigate to
    :menuselection:`App Console`,  :menuselection:`App Management`, and click :guilabel:`Create App`.
 
    .. image:: setup/lazada-open-platform-app-console.png
@@ -75,7 +77,8 @@ To obtain the :guilabel:`App Key` and :guilabel:`App Secret` for Odoo integratio
 Connect Lazada Seller Account to Odoo
 =====================================
 
-1. 1. To connect a Lazada Seller account in Odoo, navigate to :guilabel:`App` from your Database and search for Lazada :guilabel:`Activate`.
+1. 1. To connect a Lazada Seller account in Odoo, navigate to :guilabel:`App` from your Database
+   and search for Lazada :guilabel:`Activate`.
 
    .. image:: setup/lazada-connector-odoo-app.png
 
@@ -83,9 +86,10 @@ Connect Lazada Seller Account to Odoo
 
    .. image:: setup/lazada-odoo-sales-menu.png
 
-3. Connect a Lazada Account:
+3. Connect a Lazada Seller Account:
 
-   - Go to :menuselection:`Sales --> Configuration --> Lazada --> Shops` and click :guilabel:`Create New Shop`.
+   - Go to :menuselection:`Sales --> Configuration --> Lazada --> Shops` and click
+     :guilabel:`Create New Shop`.
    - Enter a name (e.g., "Lazada Malaysia"), :guilabel:`App Key`, :guilabel:`App Secret`, and
      select the marketplace (e.g., Lazada.com.my).
 
@@ -120,19 +124,24 @@ Configure Shop Before Go-Live
 
 1. Set Up Warehouses:
 
-   - Navigate to :menuselection:`Sales --> Configuration --> Settings --> Connectors -->
-     Lazada Sync --> Lazada Accounts`.
-   - Select the Lazada account and configure the :guilabel:`FBM Warehouse` field to limit stock
+   - Navigate to :menuselection:`Sales --> Configuration --> Settings --> Connectors --> Lazada
+     --> Lazada Shops`.
+   - Select the Lazada shop and configure the :guilabel:`FBM Warehouse` field to limit stock
      fetching to specific warehouses.
    - By default, all accounts use the same Lazada stock location. To isolate stock for a specific
      marketplace, create a separate account registration and assign a unique stock location.
 
+.. tip::
+   To manually trigger re-initialization of the catalog, clear the
+   :guilabel:`Last Catalog Synchronization`` before clicking :guilabel:`Sync Catalog`.
+
 2. Synchronize Product Catalog:
 
-The product catalog will be matched automatically from the first synchronization. But in case you do the following:
+   The product catalog will be matched automatically from the first synchronization. But in case
+   you do the following:
 
-   - Use the :guilabel:`Sync Product Catalogue` button in Odoo to automatically fetch active
-     Lazada products daily.
+   - Use the :guilabel:`Sync Catalog` button in Odoo to automatically fetch active Lazada products
+     daily.
    - For new Odoo databases, export the Lazada catalog from *Lazada Seller Center* (including
      SKUs). Import into Odoo via :menuselection:`Inventory --> Products --> Import`, mapping SKUs
      to the :guilabel:`Internal Reference` field.
@@ -141,8 +150,7 @@ The product catalog will be matched automatically from the first synchronization
      Odoo.
 
 .. tip::
-   Test catalog synchronization with a small product set to verify SKU mappings before full
-   import.
+   Test catalog synchronization with a small product set to verify SKU mappings before full import.
 
 .. seealso::
    - :doc:`features`
