@@ -218,12 +218,23 @@ bundle.
 By reading the source code, variables related to options are easily noticeable.
 
 .. code-block:: xml
+   :emphasize-lines: 9
 
-   <we-button title="..."
-      data-name="..."
-      data-customize-website-views="..."
-      data-customize-website-variable="'Sidebar'"
-      data-img="..."/>
+   <BuilderSelectItem
+      id="'...'"
+      title.translate="..."
+      actionParam="[
+         {
+            action: 'websiteConfig',
+            actionParam: {
+                views: [...],
+                vars: { 'header-template': 'sidebar' },
+                checkVars: false,
+            }
+         }
+      ]">
+      <Img src="'/website_airproof/static/src/img/wbuilder/template-header-opt.svg'" class="'mw-100'" />
+   </BuilderSelectItem>
 
 These variables can be overridden through the `$o-website-value-palettes` map, for example.
 
@@ -252,7 +263,7 @@ Global
 
 .. seealso::
    `Primary variables SCSS
-   <https://github.com/odoo/odoo/blob/c272c49657e8b7865bb93e5f1dcc183cc7d44f17/addons/website/static/src/scss/primary_variables.scss#L2089>`_
+   <https://github.com/odoo/odoo/blob/62cad846a5c8adf52fc0450bc3f5cfd0492d0622/addons/website/static/src/scss/primary_variables.scss#L2096>`_
 
 .. _theming/module/variables/fonts:
 
@@ -269,7 +280,7 @@ the font selector.
 
    $o-theme-font-configs: (
       <font-name>: (
-         'family': <css font family list>,
+         'family': <CSS font family list>,
          'url' (optional): <related part of Google fonts URL>,
          'properties' (optional): (
             <font-alias>: (
@@ -326,14 +337,14 @@ First, create a specific SCSS file to declare your custom font(s).
 
    'assets': {
       'web.assets_frontend': [
-         'website_airproof/static/src/scss/font.scss',
+         'website_airproof/static/src/scss/fonts.scss',
       ],
    },
 
 Then, use the `@font-face` rule to allow you custom font(s) to be loaded on your website.
 
 .. code-block:: scss
-   :caption: ``/website_airproof/static/src/scss/font.scss``
+   :caption: ``/website_airproof/static/src/scss/fonts.scss``
 
    @font-face {
       font-family: "My Custom Font", Helvetica, Helvetica Neue, Arial, sans-serif;
@@ -475,7 +486,7 @@ The colors used in a color combination are accessible and can be overridden thro
 
 .. seealso::
    `Color combinations SCSS
-   <https://github.com/odoo/odoo/blob/c272c49657e8b7865bb93e5f1dcc183cc7d44f17/addons/web_editor/static/src/scss/web_editor.common.scss#L16>`_
+   <https://github.com/odoo/odoo/blob/944d7c8d5d6bf97cba71644b615e081e4fff6595/addons/html_editor/static/src/scss/html_editor.common.scss#L16>`_
 
 .. admonition:: Demo page
 
@@ -587,9 +598,9 @@ Odoo's Website Builder allows to select a style for your text. Some are just tag
 `Header` with no extra CSS class. Other combine tag and style directly applied on them like the
 `Header 1 Display`.
 
-.. image:: theming/header.png
+.. image:: theming/font-styles.png
    :alt: Header styles
-   :width: 300
+   :width: 360
 
 .. code-block:: xml
 
@@ -615,7 +626,7 @@ examples below).
 
 .. image:: theming/sizing.png
    :alt: Sizing classes
-   :width: 300
+   :width: 358
 
 .. _theming/module/bootstrap/fonts/sizing/headings-and-body:
 
@@ -682,6 +693,23 @@ structure below.
          <field name="favicon" type="base64" file="website_airproof/static/description/favicon.png" />
          <field name="shop_ppg">18</field>
          <field name="shop_ppr">3</field>
+         <field name="shop_gap">16px</field>
+         <field name="shop_opt_products_design_classes">
+               o_wsale_products_opt_layout_catalog
+               o_wsale_products_opt_design_cards
+               o_wsale_products_opt_name_color_regular
+               o_wsale_products_opt_thumb_cover
+               o_wsale_products_opt_img_hover_zoom_out_light
+               o_wsale_products_opt_has_cta
+               o_wsale_products_opt_actions_onhover
+               o_wsale_products_opt_wishlist_fixed
+               .o_wsale_products_opt_cc
+               o_wsale_products_opt_cc1
+               o_wsale_products_opt_rounded_2
+               o_wsale_products_opt_actions_promote
+               o_wsale_products_opt_actions_subtle
+               o_wsale_products_opt_name_weight_bold
+         </field>
          <field name="cookies_bar" eval="True" />
          <field name="contact_us_button_url">/contact-us</field>
          <field name="social_facebook">https://www.facebook.com/Airproof</field>
@@ -694,7 +722,7 @@ structure below.
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
-   :widths: 20 80
+   :widths: 30 70
 
    * - Field
      - Description
@@ -708,6 +736,10 @@ structure below.
      - Number of products shown per page in the e-commerce
    * - shop_ppr
      - Number of products shown per rows (in a page) in the e-commerce
+   * - shop_gap
+     - Gutter value used to separate items of the product grid
+   * - shop_opt_products_design_classes
+     - List of CSS classes related to the Product Design options.
    * - cookies_bar
      - Enable/disable the cookies bar
    * - contact_us_button_url
@@ -739,11 +771,11 @@ By reading the source code, templates related to options are easily found.
 
 .. code-block:: xml
 
-   <we-button title="..."
-      data-name="..."
-      data-customize-website-views="website.template_header_default"
-      data-customize-website-variable="'...'"
-      data-img="..."/>
+   <BuilderContext action="'websiteConfig'">
+      <BuilderRow label.translate="...">
+         <BuilderCheckbox actionParam="{views: ['website.show_website_info']}" />
+      </BuilderRow>
+   </BuilderContext>
 
 .. code-block:: xml
 
@@ -772,7 +804,7 @@ In order to activate and deactivate views as presets, you should include those i
    :caption: ``/website_airproof/data/presets.xml``
 
    <record id="module.view" model="ir.ui.view">
-         <field name="active" eval="False"/>
+      <field name="active" eval="False"/>
    </record>
 
 .. example::
@@ -811,8 +843,9 @@ Assets
 ======
 
 For this part, we will refer to the `assets_frontend` bundle located in the web module. This bundle
-specifies the list of assets loaded by the Website Builder, and the goal is to add your SCSS and JS
-files to the bundle.
+specifies the list of assets loaded on the website frontend (public pages), and the goal is to add
+your SCSS and JS files to the bundle. The Website Builder uses its own bundles (for example:
+`website.website_builder_assets` and `website.assets_wysiwyg`).
 
 This is a non-exhaustive list of the frequently used bundles for a website:
 
@@ -831,10 +864,10 @@ This is a non-exhaustive list of the frequently used bundles for a website:
      - Mainly used for the `bootstrap_overridden.scss` file
    * - web.assets_frontend
      - You can add all your custom SCSS, JS or QWeb JS files
-   * - website.assets_wysiwyg
+   * - website.website_builder_assets
      - Add your JS files related to the Website Builder options behaviors (for instance, a custom
        method for your custom building block)
-   * - website.assets_wysiwyg
+   * - web._assets_bootstrap_frontend
      - If you need to extend Boostrap through the Bootstrap Utilities API, for example
 
 .. _theming/assets/styles:
@@ -900,8 +933,8 @@ brings the benefit of a better developer experience with better integration with
    folder of your module.
 
 .. tip::
-   - Use a linter (JSHint, ...).
-   - Never add minified JavaScript libraries.
+   - Use a linter (ESLint, ...).
+   - Always add minified JavaScript libraries
    - Add `'use strict';` at the top of every old-style module (this is automatic for new-style
      modules).
    - Use `js_` prefixed CSS classes on elements you target with JavaScript.
@@ -915,11 +948,11 @@ brings the benefit of a better developer experience with better integration with
    - Use double quotes for all textual strings (such as `"Hello"`) and single quotes for all other
      strings, such as a CSS selector `.x_nav_item`.
    - If you're using native standard JS functions (`start()`, `willStart()`, `cleanForSave()`,
-     etc), make sure you call `this._super.apply(this, arguments)`; (Check if it's necessary in the
-     standard code).
+     etc), make sure you call the parent implementation (for example, `super.start(...arguments)`;
+     check if it's necessary in the standard code).
 
 .. seealso::
    - `Odoo JavaScript coding guidelines <https://github.com/odoo/odoo/wiki/Javascript-coding-guidelines>`_
    - :doc:`Overview of the Odoo JavaScript framework
      <../../reference/frontend/javascript_reference>`
-   - `Odoo Experience Talk: 10 Tips to take your website design to the next level! <https://www.youtube.com/watch?v=vAgE_fPVXUQ&ab_channel=Odoo>`_
+   - `Odoo Experience Talk: Best practices to use the Website Builder like a professional designer <https://www.youtube.com/watch?v=-YPy5GqmUbc&ab_channel=Odoo>`_
